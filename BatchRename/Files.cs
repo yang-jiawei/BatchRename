@@ -7,18 +7,23 @@ using System.Threading.Tasks;
 namespace BatchRename
 {
     [Serializable]
-    class File
+    class Files
     {
+        public struct NamePair
+        {
+            public string Tag;
+            public string StringToFind;
+        }
+
         private string _directory;//结尾应该有\
         private string _histroyName;
         private string _newName;
-        private string _stringToFind;//分类用的字符串
-        private string _category;//分类
-        private char _prefix;
-        private char _postfix;
-        private char _dash;
+        private NamePair _nameTag;//分类用的字符串
+        private string _prefix;
+        private string _postfix;
+        private string _dash;
         private bool _isReplace;//是否删除分类用的字符串
-        private string _stringToReplace;//用/分割，每两个一组，用后面的替换前面的；
+        private List<NamePair> _stringToReplace;//用/分割，每两个一组，用后面的替换前面的；
         private bool _status;
 
         public string Directory
@@ -39,31 +44,25 @@ namespace BatchRename
             set { _newName = value; }
         }
 
-        public string StringToFind
+        public NamePair NameTag
         {
-            get { return _stringToFind; }
-            set { _stringToFind = value; }
+            get { return _nameTag; }
+            set { _nameTag = value; }
         }
 
-        public string Category
-        {
-            get { return _category; }
-            set { _category = value; }
-        }
-
-        public char Prefix
+        public string Prefix
         {
             get { return _prefix; }
             set { _prefix = value; }
         }
 
-        public char Postfix
+        public string Postfix
         {
             get { return _postfix; }
             set { _postfix = value; }
         }
 
-        public char Dash
+        public string Dash
         {
             get { return _dash; }
             set { _dash = value; }
@@ -75,7 +74,7 @@ namespace BatchRename
             set { _isReplace = value; }
         }
 
-        public string StringToReplace
+        public List<NamePair> StringToReplace
         {
             get { return _stringToReplace; }
             set { _stringToReplace = value; }
@@ -90,20 +89,27 @@ namespace BatchRename
 
         public void GetNewName()
         {
-            string name = _histroyName;
-            if (_isReplace)
+            if (_nameTag.Tag.Length > 0)
             {
-                name = name.Replace(_stringToFind, "");
-            }
-            if (_stringToReplace.Length > 0 && _stringToReplace.Length%2 == 0)
-            {
-                string[] replaceStrings = _stringToReplace.Split('/');
-                for (int index = 0; index < _stringToReplace.Length/2; index++)
+
+                string name = _histroyName;
+                if (_isReplace)
                 {
-                    name = name.Replace(replaceStrings[index*2], replaceStrings[index*2 + 1]);
+                    name = name.Replace(_nameTag.StringToFind, "");
                 }
+                if (_stringToReplace.Count > 0)
+                {
+                    foreach (NamePair namePair in _stringToReplace)
+                    {
+                        name = name.Replace(namePair.StringToFind, namePair.Tag);
+                    }
+                }
+                _newName = string.Format("{0}{1}{2}{3}{4}", _prefix, _nameTag.Tag, _postfix, _dash, name);
             }
-            _newName = string.Format("{0},{1},{2},{3},{4}", _prefix, _category, _postfix, _dash, name);
+            else
+            {
+                _newName = _histroyName;
+            }
         }
 
         public bool Rename()

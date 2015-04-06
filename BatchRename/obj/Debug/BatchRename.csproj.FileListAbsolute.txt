@@ -2,8 +2,8 @@ E:\My Documents\Personal\BatchRename\BatchRename\bin\Debug\BatchRename.exe.confi
 E:\My Documents\Personal\BatchRename\BatchRename\bin\Debug\BatchRename.exe
 E:\My Documents\Personal\BatchRename\BatchRename\bin\Debug\BatchRename.pdb
 E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.csprojResolveAssemblyReference.cache
-E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.Form1.resources
 E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.Properties.Resources.resources
 E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.csproj.GenerateResource.Cache
 E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.exe
 E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.pdb
+E:\My Documents\Personal\BatchRename\BatchRename\obj\Debug\BatchRename.frm_Main.resources
